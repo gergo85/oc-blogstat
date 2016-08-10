@@ -1,0 +1,7 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: indikator.blogstat::lang.menu.statistics
+list: ~/plugins/indikator/blogstat/models/statistics/columns.yaml
+modelClass: Indikator\BlogStat\Models\Statistics
