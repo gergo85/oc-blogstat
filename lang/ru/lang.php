@@ -8,17 +8,17 @@ return [
     ],
     'menu' => [
         'statistics' => 'Статистика',
-        'posts' => 'Cообщение|Cообщений'
+        'posts' => 'Пост|Постов'
     ],
     'widget' => [
-        'posts' => 'Новости - Посты',
-        'categories' => 'Новости - категории',
+        'posts' => 'Блог - Посты',
+        'categories' => 'Блог - Категории',
         'show_total' => 'Показать все',
         'show_active' => 'Показать активные',
         'show_inactive' => 'Показать неактивные',
-        'total' => 'Итого',
-        'active' => 'Активно',
-        'inactive' => 'Не активено'
+        'total' => 'Всего',
+        'active' => 'Активных',
+        'inactive' => 'Неактивных'
     ],
     'permission' => [
         'statistics' => 'Просмотр статистики'
