@@ -53,7 +53,7 @@ class Plugin extends PluginBase
     {
         return [
             'indikator.blogstat.statistics' => [
-                'tab'   => 'indikator.blogstat::lang.menu.statistics',
+                'tab'   => 'rainlab.blog::lang.blog.tab',
                 'label' => 'indikator.blogstat::lang.permission.statistics'
             ]
         ];
