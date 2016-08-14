@@ -8,7 +8,12 @@ return [
     ],
     'menu' => [
         'statistics' => 'Statistics',
-        'posts' => 'Post|Posts'
+        'posts' => 'Post|Posts',
+        'categories' => 'Category|Categories'
+    ],
+    'stat' => [
+        'longest' => 'Longest',
+        'shortest' => 'Shortest'
     ],
     'widget' => [
         'posts' => 'Blog - Posts',

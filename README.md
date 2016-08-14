@@ -1,9 +1,15 @@
 ##Statistics and Graphs for Blog
-This plugin extended to [RainLab Blog](https://github.com/rainlab/blog-plugin) with beautiful graphs and useful dashboard widgets.
+This plugin extend the [RainLab Blog](https://github.com/rainlab/blog-plugin) to beautiful graphs and useful dashboard widgets.
 
 ###Main features
 * Add interactive graphs
 * Add dashboard widgets
+
+###Statistics and graphs
+* Graph - Posts in this year
+* Graph - Posts in last year
+* List - TOP 10 longest posts
+* List - TOP 10 shortest posts
 
 ###Available widgets
 * Post statistics

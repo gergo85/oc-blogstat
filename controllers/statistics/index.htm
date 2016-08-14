@@ -1,11 +1,13 @@
 <?php
 
+// Graphs
+
 $thisYear = $lastYear = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0];
 $now = date('Y');
 
-$news = DB::table('rainlab_blog_posts')->where('published_at', '>', 0)->get();
+$blog = DB::table('rainlab_blog_posts')->where('published_at', '>', 0)->get();
 
-foreach ($news as $item) {
+foreach ($blog as $item) {
     $year = substr($item->published_at, 0, 4);
 
     if ($year == $now) {
@@ -18,13 +20,82 @@ foreach ($news as $item) {
     }
 }
 
+// Posts Length
+
+$blog = DB::table('rainlab_blog_posts')->get();
+$posts = [];
+
+foreach ($blog as $item) {
+    $posts[$item->id] = strlen($item->excerpt.$item->content);
+}
+
+// Longest posts
+
+arsort($posts);
+$longest = '';
+$index = 1;
+
+foreach ($posts as $id => $length) {
+    $item = DB::table('rainlab_blog_posts')->where('id', $id)->first();
+
+    $longest .= '
+        <div class="col-md-1 col-sm-1">
+            '.$index.'.
+        </div>
+        <div class="col-md-9 col-sm-9">
+            <a href="'.Backend::url('rainlab/blog/posts/update/'.$item->id).'">'.$item->title.'</a>
+        </div>
+        <div class="col-md-2 col-sm-2 text-right">
+            '.number_format($length, 0, '.', ' ').'
+        </div>
+        <div class="clearfix"></div>
+    ';
+
+    if ($index == 10) {
+        break;
+    }
+
+    $index++;
+}
+
+// Shortest posts
+
+asort($posts);
+$shortest = '';
+$index = 1;
+
+foreach ($posts as $id => $length) {
+    $item = DB::table('rainlab_blog_posts')->where('id', $id)->first();
+
+    $shortest .= '
+        <div class="col-md-1 col-sm-1">
+            '.$index.'.
+        </div>
+        <div class="col-md-9 col-sm-9">
+            <a href="'.Backend::url('rainlab/blog/posts/update/'.$item->id).'">'.$item->title.'</a>
+        </div>
+        <div class="col-md-2 col-sm-2 text-right">
+            '.number_format($length, 0, '.', ' ').'
+        </div>
+        <div class="clearfix"></div>
+    ';
+
+    if ($index == 10) {
+        break;
+    }
+
+    $index++;
+}
+
 ?>
 
 <div class="control-breadcrumb">
     <ul>
-        <li><?= e(trans('indikator.news::lang.menu.statistics')) ?></li>
+        <li><?= e(trans('indikator.blogstat::lang.menu.statistics')) ?></li>
         <li>
             <span class="text-info"><strong><?= DB::table('rainlab_blog_posts')->count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.posts', DB::table('rainlab_blog_posts')->count())) ?></span>
+            &nbsp; | &nbsp;
+            <span class="text-warning"><strong><?= DB::table('rainlab_blog_categories')->count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.categories', DB::table('rainlab_blog_categories')->count())) ?></span>
         </li>
     </ul>
 </div>
@@ -40,6 +111,16 @@ foreach ($news as $item) {
             <div id="lastYear" style="height: 220px; opacity: 0;"></div>
             <br>
             <?php endif ?>
+        </div>
+        <div class="col-md-6">
+            <strong><?= e(trans('indikator.blogstat::lang.stat.longest')) ?></strong>
+            <div class="clearfix"></div><br>
+            <?= $longest ?>
+            <br>
+            <strong><?= e(trans('indikator.blogstat::lang.stat.shortest')) ?></strong>
+            <div class="clearfix"></div><br>
+            <?= $shortest ?>
+            <br>
         </div>
     </div>
 </div>

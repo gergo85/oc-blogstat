@@ -8,7 +8,12 @@ return [
     ],
     'menu' => [
         'statistics' => 'Statisztika',
-        'posts' => 'Bejegyzés|Bejegyzés'
+        'posts' => 'Bejegyzés|Bejegyzés',
+        'categories' => 'Kategória|Kategória'
+    ],
+    'stat' => [
+        'longest' => 'Leghosszabb',
+        'shortest' => 'Legrövidebb'
     ],
     'widget' => [
         'posts' => 'Blog - Bejegyzések',
