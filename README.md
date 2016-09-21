@@ -31,7 +31,6 @@ This plugin extend the [RainLab Blog](https://github.com/rainlab/blog-plugin) to
 1. Click on the __Manage widgets > Add widget__ button.
 1. Select the any __Blog widgets__ from the list.
 
-#Credits
+## Credits
 * [Morris.js](http://morrisjs.github.io/morris.js)
 * [Raphaël JS](http://dmitrybaranovskiy.github.io/raphael)
-
