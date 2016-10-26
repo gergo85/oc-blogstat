@@ -5,7 +5,7 @@
 $thisYear = $lastYear = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0];
 $now = date('Y');
 
-$blog = DB::table('rainlab_blog_posts')->where('published_at', '>', 0)->get();
+$blog = RainLab\Blog\Models\Post::where('published_at', '>', 0)->get();
 
 foreach ($blog as $item) {
     $year = substr($item->published_at, 0, 4);
@@ -22,7 +22,7 @@ foreach ($blog as $item) {
 
 // Posts Length
 
-$blog = DB::table('rainlab_blog_posts')->get();
+$blog = RainLab\Blog\Models\Post::get();
 $posts = [];
 
 foreach ($blog as $item) {
@@ -36,7 +36,7 @@ $longest = '';
 $index = 1;
 
 foreach ($posts as $id => $length) {
-    $item = DB::table('rainlab_blog_posts')->where('id', $id)->first();
+    $item = RainLab\Blog\Models\Post::whereId($id)->first();
 
     $longest .= '
         <div class="col-md-1 col-sm-1">
@@ -65,7 +65,7 @@ $shortest = '';
 $index = 1;
 
 foreach ($posts as $id => $length) {
-    $item = DB::table('rainlab_blog_posts')->where('id', $id)->first();
+    $item = RainLab\Blog\Models\Post::whereId($id)->first();
 
     $shortest .= '
         <div class="col-md-1 col-sm-1">
@@ -93,9 +93,9 @@ foreach ($posts as $id => $length) {
     <ul>
         <li><?= e(trans('indikator.blogstat::lang.menu.statistics')) ?></li>
         <li>
-            <span class="text-info"><strong><?= DB::table('rainlab_blog_posts')->count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.posts', DB::table('rainlab_blog_posts')->count())) ?></span>
+            <span class="text-info"><strong><?= RainLab\Blog\Models\Post::count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.posts', RainLab\Blog\Models\Post::count())) ?></span>
             &nbsp; | &nbsp;
-            <span class="text-warning"><strong><?= DB::table('rainlab_blog_categories')->count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.categories', DB::table('rainlab_blog_categories')->count())) ?></span>
+            <span class="text-warning"><strong><?= RainLab\Blog\Models\Category::count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.categories', RainLab\Blog\Models\Category::count())) ?></span>
         </li>
     </ul>
 </div>
