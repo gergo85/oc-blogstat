@@ -47,8 +47,8 @@ class Posts extends ReportWidgetBase
 
     protected function loadData()
     {
-        $this->vars['active']   = RainLab\Blog\Models\Post::where('published', true)->count();
-        $this->vars['inactive'] = RainLab\Blog\Models\Post::where('published', false)->count();
+        $this->vars['active']   = \RainLab\Blog\Models\Post::where('published', true)->count();
+        $this->vars['inactive'] = \RainLab\Blog\Models\Post::where('published', false)->count();
         $this->vars['total']    = $this->vars['active'] + $this->vars['inactive'];
     }
 }

@@ -37,6 +37,6 @@ class Categories extends ReportWidgetBase
 
     protected function loadData()
     {
-        $this->vars['total'] = RainLab\Blog\Models\Category::count();
+        $this->vars['total'] = \RainLab\Blog\Models\Category::count();
     }
 }
