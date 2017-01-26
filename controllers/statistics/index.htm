@@ -26,7 +26,7 @@ $blog = RainLab\Blog\Models\Post::get();
 $posts = [];
 
 foreach ($blog as $item) {
-    $posts[$item->id] = strlen($item->excerpt.$item->content);
+    $posts[$item->id] = strlen(strip_tags($item->excerpt.$item->content));
 }
 
 // Longest posts
