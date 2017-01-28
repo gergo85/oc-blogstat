@@ -12,12 +12,10 @@ class Statistics extends Controller
         parent::__construct();
 
         BackendMenu::setContext('RainLab.Blog', 'blog', 'statistics');
-
-        $this->pageTitle = trans('indikator.blogstat::lang.menu.statistics');
     }
 
     public function index()
     {
-        // ...
+        $this->pageTitle = 'indikator.blogstat::lang.menu.statistics';
     }
 }
