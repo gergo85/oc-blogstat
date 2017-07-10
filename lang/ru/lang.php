@@ -21,9 +21,11 @@ return [
         'show_total' => 'Показать все',
         'show_active' => 'Показать активные',
         'show_inactive' => 'Показать неактивные',
+        'show_empty' => 'Показать пустой',
         'total' => 'Всего',
         'active' => 'Активных',
-        'inactive' => 'Неактивных'
+        'inactive' => 'Неактивных',
+        'empty' => 'пустой'
     ],
     'permission' => [
         'statistics' => 'Просмотр статистики'

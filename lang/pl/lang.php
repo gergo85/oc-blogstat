@@ -21,9 +21,11 @@ return [
         'show_total' => 'Pokaż wszystkie',
         'show_active' => 'Pokaż aktywne',
         'show_inactive' => 'Pokaż nieaktywne',
+        'show_empty' => 'Pokaż pusty',
         'total' => 'Razem',
         'active' => 'Aktywny',
-        'inactive' => 'Nieaktywny'
+        'inactive' => 'Nieaktywny',
+        'empty' => 'Pusty'
     ],
     'permission' => [
         'statistics' => 'Zobacz statystyki'

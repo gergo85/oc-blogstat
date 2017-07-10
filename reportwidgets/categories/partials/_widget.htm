@@ -1,16 +1,25 @@
 <div class="report-widget">
-    <h3 style="margin-bottom:5px;"><?= e(trans($this->property('title'))) ?></h3>
+    <h3><?= e(trans($this->property('title'))) ?></h3>
 
-<?php if (!isset($error)): ?>
-    <?php if ($this->property('total')): ?>
-    <div class="scoreboard-item title-value pull-left" style="margin:20px 0 0 0;">
-        <h4><?= e(trans('indikator.blogstat::lang.widget.total')) ?></h4>
-        <p class="text-center"><?= $total ?></p>
+    <?php if (!isset($error)): ?>
+    <div class="control-status-list">
+        <ul>
+            <?php if ($this->property('total')): ?>
+            <li>
+                <span class="status-text"><?= e(trans('indikator.blogstat::lang.widget.total')) ?></span>
+                <span class="status-label primary"><?= $total ?></span>
+            </li>
+            <?php endif ?>
+            <?php if ($this->property('empty')): ?>
+            <li>
+                <span class="status-text"><?= e(trans('indikator.blogstat::lang.widget.empty')) ?></span>
+                <span class="status-label primary"><?= $empty ?></span>
+            </li>
+            <?php endif ?>
+        </ul>
     </div>
-    <?php endif ?>
 
-    <div style="clear:both;"></div>
-<?php else: ?>
+    <?php else: ?>
     <p class="flash-message static warning"><?= e($error) ?></p>
-<?php endif ?>
+    <?php endif ?>
 </div>

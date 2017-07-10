@@ -21,9 +21,11 @@ return [
         'show_total' => 'Összes mutatása',
         'show_active' => 'Aktívak mutatása',
         'show_inactive' => 'Inaktívak mutatása',
+        'show_empty' => 'Üresek mutatása',
         'total' => 'Összes',
         'active' => 'Aktív',
-        'inactive' => 'Inaktív'
+        'inactive' => 'Inaktív',
+        'empty' => 'Üres'
     ],
     'permission' => [
         'statistics' => 'Statisztika megtekintése'

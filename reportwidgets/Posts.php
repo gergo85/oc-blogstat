@@ -2,6 +2,7 @@
 
 use Backend\Classes\ReportWidgetBase;
 use Exception;
+use RainLab\Blog\Models\Post;
 
 class Posts extends ReportWidgetBase
 {
@@ -47,8 +48,8 @@ class Posts extends ReportWidgetBase
 
     protected function loadData()
     {
-        $this->vars['active']   = \RainLab\Blog\Models\Post::where('published', true)->count();
-        $this->vars['inactive'] = \RainLab\Blog\Models\Post::where('published', false)->count();
+        $this->vars['active']   = Post::where('published', true)->count();
+        $this->vars['inactive'] = Post::where('published', false)->count();
         $this->vars['total']    = $this->vars['active'] + $this->vars['inactive'];
     }
 }
