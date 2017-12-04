@@ -54,7 +54,8 @@ class Plugin extends PluginBase
         return [
             'indikator.blogstat.statistics' => [
                 'tab'   => 'rainlab.blog::lang.blog.tab',
-                'label' => 'indikator.blogstat::lang.permission.statistics'
+                'label' => 'indikator.blogstat::lang.permission.statistics',
+                'roles' => ['publisher']
             ]
         ];
     }
