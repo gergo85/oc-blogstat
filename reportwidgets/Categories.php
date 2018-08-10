@@ -30,14 +30,14 @@ class Categories extends ReportWidgetBase
                 'validationMessage' => 'backend::lang.dashboard.widget_title_error'
             ],
             'total' => [
-                'title'             => 'indikator.blogstat::lang.widgets.show_total',
-                'default'           => true,
-                'type'              => 'checkbox'
+                'title'   => 'indikator.blogstat::lang.widgets.show_total',
+                'default' => true,
+                'type'    => 'checkbox'
             ],
             'empty' => [
-                'title'             => 'indikator.blogstat::lang.widgets.show_empty',
-                'default'           => true,
-                'type'              => 'checkbox'
+                'title'   => 'indikator.blogstat::lang.widgets.show_empty',
+                'default' => true,
+                'type'    => 'checkbox'
             ]
         ];
     }
