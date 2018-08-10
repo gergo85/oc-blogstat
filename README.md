@@ -17,9 +17,10 @@ This plugin extend the [RainLab Blog](https://github.com/rainlab/blog-plugin) to
 
 ## Available languages
 * en - English
+* de - Deutsch
 * ru - Pу́сский
-* pl - Polski
 * hu - Magyar
+* pl - Polski
 
 ## Installation
 1. Go to the __Settings > Updates & Plugins__ page in the Backend.
