@@ -1,101 +1,10 @@
-<?php
-
-// Graphs
-
-$thisYear = $lastYear = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0];
-$now = date('Y');
-
-$blog = RainLab\Blog\Models\Post::where('published_at', '>', 0)->get();
-
-foreach ($blog as $item) {
-    $year = substr($item->published_at, 0, 4);
-
-    if ($year == $now) {
-        $thisYear[(int)substr($item->published_at, 5, 2)]++;
-    }
-
-    else if ($year == $now - 1) {
-        $lastYear[(int)substr($item->published_at, 5, 2)]++;
-        $lastYear[0]++;
-    }
-}
-
-// Posts Length
-
-$blog = RainLab\Blog\Models\Post::get();
-$posts = [];
-
-foreach ($blog as $item) {
-    $posts[$item->id] = strlen(strip_tags($item->excerpt.$item->content));
-}
-
-// Longest posts
-
-arsort($posts);
-$longest = '';
-$index = 1;
-
-foreach ($posts as $id => $length) {
-    $item = RainLab\Blog\Models\Post::whereId($id)->first();
-
-    $longest .= '
-        <div class="col-md-1 col-sm-1">
-            '.$index.'.
-        </div>
-        <div class="col-md-9 col-sm-9">
-            <a href="'.Backend::url('rainlab/blog/posts/update/'.$item->id).'">'.$item->title.'</a>
-        </div>
-        <div class="col-md-2 col-sm-2 text-right">
-            '.number_format($length, 0, '.', ' ').'
-        </div>
-        <div class="clearfix"></div>
-    ';
-
-    if ($index == 10) {
-        break;
-    }
-
-    $index++;
-}
-
-// Shortest posts
-
-asort($posts);
-$shortest = '';
-$index = 1;
-
-foreach ($posts as $id => $length) {
-    $item = RainLab\Blog\Models\Post::whereId($id)->first();
-
-    $shortest .= '
-        <div class="col-md-1 col-sm-1">
-            '.$index.'.
-        </div>
-        <div class="col-md-9 col-sm-9">
-            <a href="'.Backend::url('rainlab/blog/posts/update/'.$item->id).'">'.$item->title.'</a>
-        </div>
-        <div class="col-md-2 col-sm-2 text-right">
-            '.number_format($length, 0, '.', ' ').'
-        </div>
-        <div class="clearfix"></div>
-    ';
-
-    if ($index == 10) {
-        break;
-    }
-
-    $index++;
-}
-
-?>
-
 <div class="control-breadcrumb">
     <ul>
         <li><?= e(trans('indikator.blogstat::lang.menu.statistics')) ?></li>
         <li>
-            <span class="text-info"><strong><?= RainLab\Blog\Models\Post::count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.posts', RainLab\Blog\Models\Post::count())) ?></span>
+            <span class="text-info"><strong><?= $countPost ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.posts', $countPost)) ?></span>
             &nbsp; | &nbsp;
-            <span class="text-warning"><strong><?= RainLab\Blog\Models\Category::count() ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.categories', RainLab\Blog\Models\Category::count())) ?></span>
+            <span class="text-warning"><strong><?= $countCategory ?></strong> <?= e(trans_choice('indikator.blogstat::lang.menu.categories', $countCategory)) ?></span>
         </li>
     </ul>
 </div>
@@ -155,21 +64,21 @@ $(document).ready(function() {
         };
     }
 
-    else if (lang == 'pl') {
+    else if (lang == 'de') {
         var trans = {
-            all: 'Összesen',
-            jan: 'styczeń',
-            feb: 'luty',
-            mar: 'marzec',
-            apr: 'kwiecień',
-            may: 'maj',
-            jun: 'czerwiec',
-            jul: 'lipiec',
-            aug: 'sierpień',
-            sep: 'wrzesień',
-            oct: 'październik',
-            nov: 'listopad',
-            dec: 'grudzień'
+            all: 'Alle',
+            jan: 'Januar',
+            feb: 'Februar',
+            mar: 'März',
+            apr: 'April',
+            may: 'Mai',
+            jun: 'Juni',
+            jul: 'Juli',
+            aug: 'August',
+            sep: 'September',
+            oct: 'Oktober',
+            nov: 'November',
+            dec: 'Dezember'
         };
     }
 
@@ -188,6 +97,24 @@ $(document).ready(function() {
             oct: 'Октябрь',
             nov: 'Ноябрь',
             dec: 'Декабрь'
+        };
+    }
+
+    else if (lang == 'pl') {
+        var trans = {
+            all: 'Összesen',
+            jan: 'styczeń',
+            feb: 'luty',
+            mar: 'marzec',
+            apr: 'kwiecień',
+            may: 'maj',
+            jun: 'czerwiec',
+            jul: 'lipiec',
+            aug: 'sierpień',
+            sep: 'wrzesień',
+            oct: 'październik',
+            nov: 'listopad',
+            dec: 'grudzień'
         };
     }
 
