@@ -9,43 +9,46 @@
     </ul>
 </div>
 
-<div class="scoreboard">
+<div class="scoreboard statboard">
     <div class="row">
         <div class="col-md-6">
-            <strong><?= $now ?></strong>
-            <div id="thisYear" style="height: 220px; opacity: 0;"></div>
-            <br>
-            <?php if ($lastYear[0] > 0): ?>
-            <strong><?= ($now - 1) ?></strong>
-            <div id="lastYear" style="height: 220px; opacity: 0;"></div>
-            <br>
-            <?php endif ?>
+            <div class="statbox">
+                <br>
+                <strong><?= $now ?></strong>
+                <div id="thisYear" style="height: 220px; opacity: 0;"></div>
+                <br>
+                <?php if ($lastYear[0] > 0): ?>
+                <strong><?= ($now - 1) ?></strong>
+                <div id="lastYear" style="height: 220px; opacity: 0;"></div>
+                <?php endif ?>
+            </div>
         </div>
         <div class="col-md-6">
-            <strong><?= e(trans('indikator.blogstat::lang.stat.longest')) ?></strong>
-            <div class="clearfix"></div><br>
-            <?= $longest ?>
-            <br>
-            <strong><?= e(trans('indikator.blogstat::lang.stat.shortest')) ?></strong>
-            <div class="clearfix"></div><br>
-            <?= $shortest ?>
-            <br>
+            <div class="statbox">
+                <br>
+                <strong><?= e(trans('indikator.blogstat::lang.stat.longest')) ?></strong>
+                <div class="clearfix"></div><br>
+                <?= $longest ?>
+                <br>
+                <strong><?= e(trans('indikator.blogstat::lang.stat.shortest')) ?></strong>
+                <div class="clearfix"></div><br>
+                <?= $shortest ?>
+                <br>
+            </div>
         </div>
     </div>
 </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.1/raphael.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
-
+    // Variables
     var date = new Date();
     var year = date.getFullYear();
     var lang = $('html').attr('lang');
 
+    // Translates
     if (lang == 'hu') {
         var trans = {
             all: 'Összesen',
@@ -63,7 +66,6 @@ $(document).ready(function() {
             dec: 'december'
         };
     }
-
     else if (lang == 'de') {
         var trans = {
             all: 'Alle',
@@ -81,7 +83,6 @@ $(document).ready(function() {
             dec: 'Dezember'
         };
     }
-
     else if (lang == 'ru') {
         var trans = {
             all: 'Всего',
@@ -99,10 +100,9 @@ $(document).ready(function() {
             dec: 'Декабрь'
         };
     }
-
     else if (lang == 'pl') {
         var trans = {
-            all: 'Összesen',
+            all: 'Wszystko',
             jan: 'styczeń',
             feb: 'luty',
             mar: 'marzec',
@@ -117,7 +117,6 @@ $(document).ready(function() {
             dec: 'grudzień'
         };
     }
-
     else {
         var trans = {
             all: 'All',
@@ -136,6 +135,7 @@ $(document).ready(function() {
         };
     }
 
+    // Graph
     new Morris.Line({
         element: 'thisYear',
         data: [
@@ -170,62 +170,59 @@ $(document).ready(function() {
         ymin: 0
     });
 
+    // This year
     $('#thisYear').fadeTo(1200, 1);
 
+    // Last year
     if ($('#lastYear').length == 1) {
+        new Morris.Line({
+            element: 'lastYear',
+            data: [
+                { year: (year - 1) + '-01', 'all': <?= $lastYear[1] ?> },
+                { year: (year - 1) + '-02', 'all': <?= $lastYear[2] ?> },
+                { year: (year - 1) + '-03', 'all': <?= $lastYear[3] ?> },
+                { year: (year - 1) + '-04', 'all': <?= $lastYear[4] ?> },
+                { year: (year - 1) + '-05', 'all': <?= $lastYear[5] ?> },
+                { year: (year - 1) + '-06', 'all': <?= $lastYear[6] ?> },
+                { year: (year - 1) + '-07', 'all': <?= $lastYear[7] ?> },
+                { year: (year - 1) + '-08', 'all': <?= $lastYear[8] ?> },
+                { year: (year - 1) + '-09', 'all': <?= $lastYear[9] ?> },
+                { year: (year - 1) + '-10', 'all': <?= $lastYear[10] ?> },
+                { year: (year - 1) + '-11', 'all': <?= $lastYear[11] ?> },
+                { year: (year - 1) + '-12', 'all': <?= $lastYear[12] ?> }
+                ],
+            xkey: 'year',
+            ykeys: ['all'],
+            labels: [trans.all],
+            lineColors: ['#31708f'],
+            hideHover: 'auto',
+            xLabelFormat: function(x) {
+                var IndexToMonth = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+                return IndexToMonth[x.getMonth()];
+            },
+            dateFormat: function(d) {
+                var IndexToMonth = [trans.jan, trans.feb, trans.mar, trans.apr, trans.may, trans.jun, trans.jul, trans.aug, trans.sep, trans.oct, trans.nov, trans.dec];
+                return month = IndexToMonth[new Date(d).getMonth()];
+            },
+            resize: true,
+            gridIntegers: true,
+            ymin: 0
+        });
 
-    new Morris.Line({
-        element: 'lastYear',
-        data: [
-            { year: (year - 1) + '-01', 'all': <?= $lastYear[1] ?> },
-            { year: (year - 1) + '-02', 'all': <?= $lastYear[2] ?> },
-            { year: (year - 1) + '-03', 'all': <?= $lastYear[3] ?> },
-            { year: (year - 1) + '-04', 'all': <?= $lastYear[4] ?> },
-            { year: (year - 1) + '-05', 'all': <?= $lastYear[5] ?> },
-            { year: (year - 1) + '-06', 'all': <?= $lastYear[6] ?> },
-            { year: (year - 1) + '-07', 'all': <?= $lastYear[7] ?> },
-            { year: (year - 1) + '-08', 'all': <?= $lastYear[8] ?> },
-            { year: (year - 1) + '-09', 'all': <?= $lastYear[9] ?> },
-            { year: (year - 1) + '-10', 'all': <?= $lastYear[10] ?> },
-            { year: (year - 1) + '-11', 'all': <?= $lastYear[11] ?> },
-            { year: (year - 1) + '-12', 'all': <?= $lastYear[12] ?> }
-            ],
-        xkey: 'year',
-        ykeys: ['all'],
-        labels: [trans.all],
-        lineColors: ['#31708f'],
-        hideHover: 'auto',
-        xLabelFormat: function(x) {
-            var IndexToMonth = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-            return IndexToMonth[x.getMonth()];
-        },
-        dateFormat: function(d) {
-            var IndexToMonth = [trans.jan, trans.feb, trans.mar, trans.apr, trans.may, trans.jun, trans.jul, trans.aug, trans.sep, trans.oct, trans.nov, trans.dec];
-            return month = IndexToMonth[new Date(d).getMonth()];
-        },
-        resize: true,
-        gridIntegers: true,
-        ymin: 0
-    });
-
-    setTimeout(function() {
-        $('#lastYear').fadeTo(1200, 1);
-    }, 300);
-
+        setTimeout(function() {
+            $('#lastYear').fadeTo(1200, 1);
+        }, 300);
     }
 
 });
 
+// Graph
 (function() {
     var $, MyMorris;
-
     MyMorris = window.MyMorris = {};
     $ = jQuery;
-
     MyMorris = Object.create(Morris);
-
     MyMorris.Grid.prototype.gridDefaults["gridIntegers"] = false;
-
     MyMorris.Grid.prototype.setData = function (data, redraw) {
         var e, idx, index, maxGoal, minGoal, ret, row, step, total, y, ykey, ymax, ymin, yval, _ref;
         if (redraw == null) {

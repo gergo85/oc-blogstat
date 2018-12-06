@@ -29,19 +29,19 @@ class Posts extends ReportWidgetBase
                 'validationMessage' => 'backend::lang.dashboard.widget_title_error'
             ],
             'total' => [
-                'title'             => 'indikator.blogstat::lang.widgets.show_total',
-                'default'           => true,
-                'type'              => 'checkbox'
+                'title'   => 'indikator.blogstat::lang.widgets.show_total',
+                'default' => true,
+                'type'    => 'checkbox'
             ],
             'active' => [
-                'title'             => 'indikator.blogstat::lang.widgets.show_active',
-                'default'           => true,
-                'type'              => 'checkbox'
+                'title'   => 'indikator.blogstat::lang.widgets.show_active',
+                'default' => true,
+                'type'    => 'checkbox'
             ],
             'inactive' => [
-                'title'             => 'indikator.blogstat::lang.widgets.show_inactive',
-                'default'           => true,
-                'type'              => 'checkbox'
+                'title'   => 'indikator.blogstat::lang.widgets.show_inactive',
+                'default' => true,
+                'type'    => 'checkbox'
             ]
         ];
     }

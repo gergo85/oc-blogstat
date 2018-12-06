@@ -21,6 +21,8 @@ class Statistics extends Controller
     {
         $this->pageTitle = 'indikator.blogstat::lang.menu.statistics';
 
+        $this->addCss('/plugins/indikator/blogstat/assets/css/statistics.css');
+
         $this->vars['countPost']     = Post::count();
         $this->vars['countCategory'] = Category::count();
 
@@ -32,40 +34,34 @@ class Statistics extends Controller
 
     public function getGraphs()
     {
-        $thisYear = $lastYear = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0];
-        $this->vars['now'] = $now = date('Y');
+        $this->vars['thisYear'] = $this->vars['lastYear'] = array_fill(0, 13, 0);
+        $this->vars['now'] = date('Y');
 
-        $blog = Post::where('published_at', '>', 0)->get()->all();
+        $blog = Post::where('published_at', '>', 0)->get();
 
         foreach ($blog as $item) {
             $year = substr($item->published_at, 0, 4);
 
-            if ($year == $now) {
-                $thisYear[(int)substr($item->published_at, 5, 2)]++;
+            if ($year == $this->vars['now']) {
+                $this->vars['thisYear'][(int)substr($item->published_at, 5, 2)]++;
             }
 
-            else if ($year == $now - 1) {
-                $lastYear[(int)substr($item->published_at, 5, 2)]++;
-                $lastYear[0]++;
+            else if ($year == $this->vars['now'] - 1) {
+                $this->vars['lastYear'][(int)substr($item->published_at, 5, 2)]++;
+                $this->vars['lastYear'][0]++;
             }
         }
-
-        $this->vars['thisYear'] = $thisYear;
-        $this->vars['lastYear'] = $lastYear;
     }
 
     public function getPostsInfo()
     {
-        $blog = Post::get()->all();
-        $length = $title = [];
+        $blog = Post::get();
+        $this->vars['length'] = $this->vars['title'] = [];
 
         foreach ($blog as $item) {
-            $length[$item->id] = strlen(strip_tags($item->excerpt.$item->content));
-            $title[$item->id]  = $item->title;
+            $this->vars['length'][$item->id] = strlen(trim(preg_replace('/\s+/', ' ', strip_tags($item->excerpt.$item->content))));
+            $this->vars['title'][$item->id]  = $item->title;
         }
-
-        $this->vars['length'] = $length;
-        $this->vars['title']  = $title;
     }
 
     public function getLongestPosts()
@@ -75,11 +71,11 @@ class Statistics extends Controller
 
         arsort($length);
 
-        $longest = '';
+        $this->vars['longest'] = '';
         $index = 1;
 
         foreach ($length as $id => $value) {
-            $longest .= '
+            $this->vars['longest'] .= '
                 <div class="col-md-1 col-sm-1">
                     '.$index.'.
                 </div>
@@ -98,8 +94,6 @@ class Statistics extends Controller
 
             $index++;
         }
-
-        $this->vars['longest'] = $longest;
     }
 
     public function getShortestPosts()
@@ -109,11 +103,11 @@ class Statistics extends Controller
 
         asort($length);
 
-        $shortest = '';
+        $this->vars['shortest'] = '';
         $index = 1;
 
         foreach ($length as $id => $value) {
-            $shortest .= '
+            $this->vars['shortest'] .= '
                 <div class="col-md-1 col-sm-1">
                     '.$index.'.
                 </div>
@@ -132,7 +126,5 @@ class Statistics extends Controller
 
             $index++;
         }
-
-        $this->vars['shortest'] = $shortest;
     }
 }
