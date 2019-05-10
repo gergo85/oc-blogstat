@@ -39,12 +39,14 @@ class Plugin extends PluginBase
     {
         return [
             'Indikator\BlogStat\ReportWidgets\Posts' => [
-                'label'   => 'indikator.blogstat::lang.widget.posts',
-                'context' => 'dashboard'
+                'label'       => 'indikator.blogstat::lang.widget.posts',
+                'context'     => 'dashboard',
+                'permissions' => ['indikator.blogstat.statistics']
             ],
             'Indikator\BlogStat\ReportWidgets\Categories' => [
-                'label'   => 'indikator.blogstat::lang.widget.categories',
-                'context' => 'dashboard'
+                'label'       => 'indikator.blogstat::lang.widget.categories',
+                'context'     => 'dashboard',
+                'permissions' => ['indikator.blogstat.statistics']
             ]
         ];
     }
