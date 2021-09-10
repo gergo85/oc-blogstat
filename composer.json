@@ -1,0 +1,11 @@
+{
+    "name": "indikator/blogstat-plugin",
+    "type": "october-plugin",
+    "description": "This plugin extend the RainLab Blog to beautiful graphs and useful dashboard widgets.",
+    "homepage": "https://octobercms.com/plugin/indikator-blogstat",
+    "keywords": ["october", "octobercms", "blog"],
+    "license": "MIT",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
